@@ -63,3 +63,74 @@ const images = [
     description: 'Lighthouse Coast Sea',
   },
 ];
+
+const container = document.querySelector('.gallery');
+container.insertAdjacentHTML('beforeend', createItems(images));
+container.addEventListener('click', handleImagesClick);
+
+function createItems(imagesArr) {
+  return imagesArr
+    .map(
+      image => `<li class="gallery-item">
+  <a class="gallery-link" href="${image.original}">
+    <img
+      class="gallery-image"
+      src="${image.preview}"
+      data-source="${image.original}"
+      alt="${image.description}"
+      width="360" height="200"
+    />
+  </a>
+</li>`
+    )
+    .join('');
+}
+
+function handleImagesClick(event) {
+  event.preventDefault();
+  if (event.target === event.currentTarget) return;
+
+  const currentImage = event.target.closest('.gallery-image');
+  const imageOriginal = currentImage.dataset.source;
+  const image = images.find(item => item.original === imageOriginal);
+
+  const instance = basicLightbox.create(`
+      <img src="${image.original}" alt="${image.description}" width="1112" height="640">
+  `);
+
+  instance.show();
+}
+
+// _____________________________________________________________________________________________
+// Прошу залишити закоментований код для себе щоб мати можливість при потребі подивитися альтернативний
+// варіант вирішення задачі. (цей фрагмент коду писала не я, тому прохання його ніяк не оцінювати)
+// _____________________________________________________________________________________________
+
+// function handleImagesClick(event) {
+//   event.preventDefault();
+//   if (event.target.nodeName !== 'IMG') {
+//     return;
+//   }
+//   const currentImage = event.target;
+//   const imageSource = currentImage.dataset.source;
+//   const imageAlt = currentImage.alt;
+//   const instance = basicLightbox.create(
+//     `
+//     	<img src="${imageSource}" alt="${imageAlt}" width="1112" height="640">
+//     `,
+//     {
+//       onShow: instance => {
+//         document.addEventListener('keydown', escKeyPressHandler);
+//       },
+//       onClose: instance => {
+//         document.removeEventListener('keydown', escKeyPressHandler);
+//       },
+//     }
+//   );
+//   instance.show();
+//   function escKeyPressHandler(event) {
+//     if (event.code === 'Escape') {
+//       instance.close();
+//     }
+//   }
+// }

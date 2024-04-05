@@ -1,0 +1,41 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+body {
+  margin: 0;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 24px 156px;
+  justify-content: center;
+  gap: 24px;
+  background: #fff;
+}
+
+.gallery-image {
+  width: 360px;
+  height: 200px;
+  display: block;
+  object-fit: cover;
+}
+
+.basicLightbox__placeholder > img:first-child:last-child {
+  width: 1112px;
+  height: 640px;
+  object-fit: cover;
+}
